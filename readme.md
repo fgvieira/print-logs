@@ -20,7 +20,9 @@ List of files to print.
 - name: Print logs
   uses: next-actions/print-logs@master
   with:
-    working-directory: logs
+    working-directory: |
+      logs/
+      /tmp/tmp*
     files: |
       *.log
       added.err
