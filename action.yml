@@ -12,7 +12,7 @@ runs:
   steps:
   - name: Print files
     env:
-      wds: ${{ inputs.working-directories }}
+      wds: ${{ inputs.working-directory }}
       files: ${{ inputs.files }}
     shell: bash
     run: |
