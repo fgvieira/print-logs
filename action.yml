@@ -12,19 +12,22 @@ runs:
   steps:
   - name: Print files
     env:
+      wds: ${{ inputs.working-directories }}
       files: ${{ inputs.files }}
     shell: bash
     run: |
       set +e
-      pushd '${{ inputs.working-directory }}' &> /dev/null
 
-      for file in $files; do
-        if [ -f "$file" ]; then
-          echo -e ::group::File: $file
-          cat $file
-          echo ::endgroup::
-        fi
+      for wd in $wds; do
+        for file in $files; do
+          for log in `find $wd -type f -name '$file'`; do
+            if [ -f "$log" ]; then
+              echo -e ::group::File: $log
+              cat $log
+              echo ::endgroup::
+            fi
+          done
+        done
       done
 
-      popd &> /dev/null
       exit 0
